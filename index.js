@@ -63,6 +63,7 @@ const renderPrediction = async () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < predictions.length; i++) {
+      modifyVideo(predictions);
       if (returnTensors) {
         predictions[i].topLeft = predictions[i].topLeft.arraySync();
         predictions[i].bottomRight = predictions[i].bottomRight.arraySync();
