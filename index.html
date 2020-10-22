@@ -67,8 +67,8 @@
 <script src="Stats.js"></script>
 <script src="index.js"></script><div class="dg ac"><div class="dg main a" style="user-select: none; width: 245px;"><div style="width: 6px; margin-left: -3px; height: 28px; cursor: ew-resize; position: absolute;"></div><ul style="height: auto;"><li class="cr string"><div><span class="property-name">backend</span><div class="c"><select><option value="wasm" selected="selected">wasm</option><option value="webgl">webgl</option><option value="cpu">cpu</option></select></div></div></li></ul><div class="close-button close-bottom" style="width: 245px;">Close Controls</div></div></div>
 <div id='videoWrapper'>
-  <video src='videos/gw/1.mp4'></video>  
-  <video src='videos/gw/2.mp4'></video>  
+  <video id='video1' autoplay loop nocontrols muted src='videos/gw/1.mp4'></video>  
+  <video id='video2' autoplay loop nocontrols muted src='videos/gw/2.mp4'></video>  
 </div>
 
 
@@ -76,7 +76,16 @@
 <script>
 function modifyVideo(p)
 {
-  console.log(p);
+  var hNose = p[0].landmarks[2][0];
+  var hLen = p[0].topLeft[0] - p[0].bottomRight[0];
+  if(hNose < 0) hNose = 0;
+  if(hNose > 600) hNose = 600;
+  console.log(hNose, hLen);
+  var op = hNose/600;
+  var opInv = 1 - op;
+  document.getElementById("video1").style.opacity = op;
+  document.getElementById("video2").style.opacity = opInv;
+
 }
 </script>
 <style>
@@ -94,6 +103,7 @@ function modifyVideo(p)
     left: 0;
     width: 100vw;
     height: 100vh;
+    transition:.01s;
 }
 </style>
 </html>
